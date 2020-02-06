@@ -6,7 +6,7 @@
 
 -export([newline/2, delimiter/2, field/3, row/3]).
 
--type option() :: {delimiter, $, | $\t | $;}.
+-type option() :: {delimiter, byte()}.
 
 newline(File) ->
   newline(File, []).
