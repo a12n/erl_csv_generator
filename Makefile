@@ -1,6 +1,6 @@
 REBAR=$(shell which rebar3)
 
-.PHONY: all clean test
+.PHONY: all edoc test clean build_plt dialyzer
 
 all:
 	@$(REBAR) compile
