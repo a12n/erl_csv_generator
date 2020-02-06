@@ -15,8 +15,9 @@ comma(File) ->
 delimiter(File) ->
   delimiter(File, []).
 
-delimiter(File, _Opts) ->
-  file:write(File, ",").
+delimiter(File, Opts) ->
+  Delim = proplists:get_value(delimiter, Opts, $,),
+  file:write(File, [Delim]).
 
 field(File, Value) ->
   field(File, Value, []).
@@ -25,8 +26,9 @@ field(File, Value, _Opts) when is_tuple(Value) ->
   file:write(File, "\""),
   file:write(File, io_lib:format("~p",[Value])),
   file:write(File, "\"");
-field(File, Value, _Opts) when is_binary(Value) ->
-  Match = binary:match(Value, [<<",">>, <<"\n">>, <<"\"">>]),
+field(File, Value, Opts) when is_binary(Value) ->
+  Delim = proplists:get_value(delimiter, Opts, $,),
+  Match = binary:match(Value, [<<Delim>>, <<"\n">>, <<"\"">>]),
   case Match of
     nomatch ->
       file:write(File, Value);
