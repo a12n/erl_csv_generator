@@ -1,4 +1,4 @@
-REBAR=$(shell which rebar)
+REBAR=$(shell which rebar3)
 
 .PHONY: all clean test
 
@@ -6,18 +6,16 @@ all:
 	@$(REBAR) compile
 
 edoc:
-	@$(REBAR) doc
+	@$(REBAR) edoc
 
 test:
-	@rm -rf .eunit
-	@mkdir -p .eunit
-	@$(REBAR) skip_deps=true eunit
+	@$(REBAR) eunit
 
 clean:
 	@$(REBAR) clean
 
 build_plt:
-	@$(REBAR) build-plt
+	@true
 
 dialyzer:
-	@$(REBAR) dialyze
+	@$(REBAR) dialyzer
