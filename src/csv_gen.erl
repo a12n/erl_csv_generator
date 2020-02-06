@@ -1,11 +1,14 @@
 -module(csv_gen).
 
--export([newline/1, comma/1, field/2, row/2]).
+-export([newline/1, comma/1, delimiter/1, field/2, row/2]).
 
 newline(File) ->
   file:write(File, "\n").
 
 comma(File) ->
+  delimiter(File).
+
+delimiter(File) ->
   file:write(File, ",").
 
 field(File, Value) when is_tuple(Value) ->
