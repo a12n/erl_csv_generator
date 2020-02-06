@@ -1,7 +1,12 @@
 -module(csv_gen).
 
+-export_type([option/0]).
+
 -export([newline/1, comma/1, delimiter/1, field/2, row/2]).
+
 -export([newline/2, delimiter/2, field/3, row/3]).
+
+-type option() :: {delimiter, $, | $\t | $;}.
 
 newline(File) ->
   newline(File, []).
