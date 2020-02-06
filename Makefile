@@ -1,21 +1,26 @@
-REBAR=$(shell which rebar3)
+REBAR=$(shell which rebar3 || echo ./rebar3)
 
 .PHONY: all edoc test clean build_plt dialyzer
 
-all:
+all: $(REBAR)
 	@$(REBAR) compile
 
-edoc:
+edoc: $(REBAR)
 	@$(REBAR) edoc
 
-test:
+test: $(REBAR)
 	@$(REBAR) eunit
 
-clean:
+clean: $(REBAR)
 	@$(REBAR) clean
 
 build_plt:
 	@true
 
-dialyzer:
+dialyzer: $(REBAR)
 	@$(REBAR) dialyzer
+
+./rebar3:
+	wget "https://github.com/erlang/rebar3/releases/download/3.13.0/rebar3" -O $@-part
+	chmod +x $@-part
+	mv $@-part $@
