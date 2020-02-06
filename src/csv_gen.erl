@@ -46,5 +46,5 @@ row(File, [Value]) ->
   newline(File);
 row(File, [Value | Rest]) ->
   field(File, Value),
-  comma(File),
+  delimiter(File),
   row(File, Rest).
