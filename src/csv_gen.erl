@@ -27,7 +27,7 @@ field(File, Value) when is_list(Value) ->
 field(File, Value) when is_integer(Value) ->
   file:write(File, integer_to_list(Value));
 field(File, Value) when is_atom(Value) ->
-  file:write(File, io_lib:write_atom(Value));
+  field(File, atom_to_binary(Value, utf8));
 field(File, Value) when is_float(Value) ->
   file:write(File, io_lib:format("~f",[Value]));
 field(File, Value) ->
