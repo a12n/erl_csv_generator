@@ -25,3 +25,12 @@ double_quote_test() ->
   io:format("wrote ~s~n", [Contents]),
   ?assertEqual(<<"Column 1,Column 2,Column 3,Column 4\n\"two double-quote \"\"\"\"\",\"three double-quote \"\"\"\"\"\"\",\"four double-quote:\n \"\"\"\"\"\"\"\"\"\n">>, Contents).
 
+custom_delimiter_test() ->
+    {ok, File} = file:open("temp.csv", [write]),
+    Opts = [{delimiter, $\;}],
+    csv_gen:row(File, ["with , comma", "with ; semicolon"], Opts),
+    file:close(File),
+
+    {ok, Contents} = file:read_file("temp.csv"),
+    io:format("wrote ~s~n", [Contents]),
+    ?assertEqual(<<"with , comma;\"with ; semicolon\"\n">>, Contents).
